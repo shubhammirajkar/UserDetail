@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Basic Page</title>
+<style>
+	button{
+	padding:10px;
+	}
+	
+	fieldset{
+	margin-bottom:20px;
+	}
+	body { font-family: "Product Sans"; }
+	input[type='text'] {font-size: 16px; font-family: "Product Sans";}
+	input[type='email'] {font-size: 16px; font-family: "Product Sans";}
+	
+	form { 
+		margin: 0 auto; 
+		width:250px;
+	}
+	
+	fieldset {
+  margin: 20px;
+  padding: 0 10px 10px;
+  border: 1px solid #666;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #666;
+  padding-top: 10px;
+}
+legend {
+  padding: 2px 4px;
+  background: #fff;
+  /* For better legibility against the box-shadow */
+}
+fieldset > legend {
+  float: left;
+  margin-top: -20px;
+}
+fieldset > legend + * {
+  clear: both;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button3 {border-radius: 8px;}
+
+</style>
+</head>
+<body>
+<body background="image.jpg">
+	<fieldset>
+		<form>
+		<label>Name:</label><br/>
+		<input id="inpName" type="text" placeholder="Enter Name..." required><br/>
+		<br/>
+		<label>Email:</label><br/>
+		<input id="inpMail" type="email" placeholder="Enter Email..." required><br/>
+		<br/>
+		<button class="button button3" type="button" id="btnInsert">Submit</button>
+		</form>
+	</fieldset>	
+	
+	<fieldset>
+		<legend>Local Storage</legend>
+		<div id="lsOutput"></div>
+	</fieldset>
+	
+</body>
+
+<script type="text/javascript">
+	const inpName = document.getElementById("inpName");
+	const inpMail = document.getElementById("inpMail");
+	const btnInsert = document.getElementById("btnInsert");
+	const lsOutput = document.getElementById("lsOutput");
+	
+	btnInsert.onclick= function(){
+	const name = inpName.value;
+	const mail = inpMail.value;
+	
+	console.log(name);
+	console.log(mail);
+	
+	if(name && mail){
+		localStorage.setItem(name, mail);
+		location.reload();
+	}
+	
+	};
+	
+	for(let i = 0; i < localStorage.length ; i++){
+		const name = localStorage.key(i);
+		const mail = localStorage.getItem(name);
+		
+		lsOutput.innerHTML += `${name}: ${mail}<br />`;
+	}
+
+</script>
+ 
+</html> 
