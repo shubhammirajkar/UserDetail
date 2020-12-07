@@ -7,11 +7,11 @@
 	padding:10px;
 	}
 	
-	fieldset{
-	margin-bottom:20px;
-	}
+	
 	body { font-family: "Product Sans"; }
+
 	input[type='text'] {font-size: 14px; font-family: "Product Sans";}
+
 	input[type='email'] {font-size: 14px; font-family: "Product Sans";}
 	
 	form { 
@@ -20,91 +20,115 @@
 	}
 	
 	fieldset {
-  margin: 20px;
-  padding: 0 10px 10px;
-  border: 1px solid #666;
-  border-radius: 8px;
-  box-shadow: 0 0 10px #666;
-  padding-top: 10px;
-}
-legend {
-  padding: 2px 4px;
-  background: #fff;
-  /* For better legibility against the box-shadow */
-}
-fieldset > legend {
-  float: left;
-  margin-top: -20px;
-}
-fieldset > legend + * {
-  clear: both;
-}
+  		margin: 20px;
+  		padding: 0 10px 10px;
+  		border: 1px solid #666;
+  		border-radius: 8px;
+  		box-shadow: 0 0 10px #666;
+ 		padding-top: 10px;
+	}
+	legend {
+ 	 padding: 2px 4px;
+ 	 background: #fff;
+	}
+	fieldset > legend {
+  	float: left;
+  	margin-top: -20px;
+	}
+	fieldset > legend + * {
+  	clear: both;
+	}
 
-.button {
-  background-color: #4CAF50; /* Green */
-  border: none;
-  color: white;
-  padding: 8px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
+	.button {
+  	background-color: #4CAF50; /* Green */
+  	border: none;
+  	color: white;
+  	padding: 8px 20px;
+  	text-align: center;
+	text-decoration: none;
+  	display: inline-block;
+  	font-size: 14px;
+  	margin: 4px 2px;
+  	cursor: pointer;
+	}
 
-.button3 {border-radius: 8px;}
+	.button3 {border-radius: 8px;}
 
 </style>
 </head>
 <body>
-<body >
+	
 	<fieldset>
 		<form>
-		<label >Name:</label><br/>
-		<input id="inpName" type="text" placeholder="Enter Name..." required><br/>
-		<br/>
-		<label>Email:</label><br/>
-		<input id="inpMail" type="email" placeholder="Enter Email..." required><br/>
-		<br/>
-		<button class="button button3" type="button" id="btnInsert">Submit</button>
+			<div><h2>Schedule a Call</h2></div>
 		</form>
+		<form>
+			<div>
+				<label >Name:</label><br/>
+				<input required id="inpName" type="text" placeholder="Enter Name..." >
+			</div>
+			<di>
+				<label>Email:</label><br/>
+				<input required id="inpMail" type="email" placeholder="Enter Email..." ><br/>
+			</div>
+			<div>
+				<label>Phone:</label><br/>
+				<input  required id="inpPhone" type="number" placeholder="Enter Phone Number..."><br/>
+			</div>
+			<div>
+				<label for="date">Time for call:</label><br/>
+					<input required id="date" type="date" min="2020-12-08" value="2020-12-08">
+					<select id="time">
+						<option value="11:00">11:00</option>
+						<option value="12:00">12:00</option>
+						<option value="13:00">13:00</option>
+						<option value="14:00">14:00</option>
+						<option value="15:00">15:00</option>
+						<option value="16:00">16:00</option>
+						<option value="17:00">17:00</option>
+					</select>
+			</div>
+
+			<div>
+				<button class="button button3" type="button" id="btn">Submit</button>
+			</div>
+			
+		</form>
+		
 	</fieldset>	
-	
 	<fieldset>
 		<legend>Local Storage</legend>
-		<div id="lsOutput"></div>
+		<div id="msg">
+			<pre></pre>
+		</div>
 	</fieldset>
 	
-</body>
 
-<script type="text/javascript">
-	const inpName = document.getElementById("inpName");
-	const inpMail = document.getElementById("inpMail");
-	const btnInsert = document.getElementById("btnInsert");
-	const lsOutput = document.getElementById("lsOutput");
 	
-	btnInsert.onclick= function(){
-	const name = inpName.value;
-	const mail = inpMail.value;
-	
-	console.log(name);
-	console.log(mail);
-	
-	if(name && mail){
-		localStorage.setItem(name, mail);
-		location.reload();
-	}
-	
-	};
-	
-	for(let i = 0; i < localStorage.length ; i++){
-		const name = localStorage.key(i);
-		const mail = localStorage.getItem(name);
-		
-		lsOutput.innerHTML += `${name}: ${mail}<br />`;
-	}
+	<script type="text/javascript">
+		let userDetailArr = [];
 
-</script>
- 
-</html> 
+		const addUserDetail = (ev)=>{
+			ev.preventDefault();
+			let userDetail ={
+				name:  document.getElementById('inpName').value,
+				mail:  document.getElementById('inpMail').value,
+				phone:  document.getElementById('inpPhone').value,
+				date: document.getElementById('date').value,
+				time: document.getElementById('time').value
+			}
+			userDetailArr.push(userDetail);
+			document.forms[0].reset(); 
+
+			console.warn('added' , {userDetailArr} );
+			let pre = document.querySelector('#msg pre');
+            pre.textContent = '\n' + JSON.stringify(userDetailArr, '\t',2);
+
+            localStorage.setItem('UserDetailList', JSON.stringify(userDetailArr) );
+		}
+		document.addEventListener('DOMContentLoaded', ()=>{
+        	document.getElementById('btn').addEventListener('click', addUserDetail);
+		});
+	</script>	
+</body>	
+</html>
