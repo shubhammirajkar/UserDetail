@@ -70,12 +70,11 @@
 			<div><h2>Schedule a Call</h2></div>
 		</form>
 		<form>
-			
 			<div>
 				<label>Name:</label>
 				<input required id="inpName" type="text" placeholder="Enter Name..." >
 			</div>
-			<di>
+			<div>
 				<label>Email:</label>
 				<input required id="inpMail" type="email" placeholder="Enter Email..." ><br/>
 			</div>
@@ -129,14 +128,14 @@
 			document.forms[0].reset(); 
 
 			console.warn('added' , {userDetailArr} );
+
 			let pre = document.querySelector('#msg li');
             pre.textContent = '\n' + JSON.stringify(userDetailArr, '\t',2);
 
-            localStorage.setItem('UserDetailList', JSON.stringify(userDetailArr) );
+			localStorage.setItem('UserDetailList', JSON.stringify(userDetailArr) );
 		}
 		document.addEventListener('DOMContentLoaded', ()=>{
         	document.getElementById('btn').addEventListener('click', addUserDetail);
 		});
 	</script>	
 </body>	
-</html>
